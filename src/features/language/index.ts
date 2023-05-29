@@ -1,7 +1,10 @@
 import 'features/language/language.css';
 import LanguageComponent from './language.component';
-import useLanguage, { LanguageProvider } from 'features/language/language.context';
-import Languages from './language.types';
+import type Languages from './language.types';
 
-export { LanguageComponent, useLanguage, LanguageProvider };
+export { LanguageComponent };
 export type { Languages };
+
+export { LanguageContext } from './context/LanguageContext'
+export { LanguageProvider } from './context/LanguageContext'
+ 

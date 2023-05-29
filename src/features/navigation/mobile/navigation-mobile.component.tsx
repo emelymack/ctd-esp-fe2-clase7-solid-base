@@ -1,13 +1,13 @@
 import { FaBars, FaTimes } from 'react-icons/fa';
 import useDisclosure from 'features/modal/use-disclosure';
 import { SearchBar } from 'features/search';
-import { FC } from 'react';
-import { useLanguage } from 'features/language';
+import { FC, useContext } from 'react';
+import { LanguageContext } from 'features/language';
 import { NavLink } from 'react-router-dom';
 
 const NavMobile: FC = () => {
   const { isOpen, toggle } = useDisclosure();
-  const { t } = useLanguage();
+  const { translate } = useContext(LanguageContext);
 
   return (
     <div className={`container mobile-nav`}>
@@ -23,10 +23,10 @@ const NavMobile: FC = () => {
         <div className={'container'} style={{ flexDirection: 'column' }}>
           <div className={'container'} style={{ width: 400, flexDirection: 'column' }}>
             <NavLink to="/" className={'nav-link'}>
-              <h3>{t('navigation.home')}</h3>
+              <h3>{translate('navigation.home')}</h3>
             </NavLink>
             <NavLink to="/following" className={'nav-link'}>
-              <h3>{t('navigation.following')}</h3>
+              <h3>{translate('navigation.following')}</h3>
             </NavLink>
           </div>
           <SearchBar />

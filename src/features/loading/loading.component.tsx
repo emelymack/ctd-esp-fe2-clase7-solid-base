@@ -1,9 +1,10 @@
-import { FC } from 'react';
-import { useLanguage } from 'features/language';
+import { FC, useContext } from 'react';
+import { LanguageContext } from 'features/language';
 
 const LoadingComponent: FC = () => {
-  const { t } = useLanguage();
-  return <div>{t('loading')}...</div>;
+
+  const { translate } = useContext(LanguageContext);  
+  return <div>{translate('loading')}...</div>;
 };
 
 export default LoadingComponent;
