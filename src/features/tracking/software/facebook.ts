@@ -1,10 +1,10 @@
-import { TrackingSoftware } from 'features/tracking/tracking.types';
+import { Initializable, TraceableEvent, TrackingSoftware } from 'features/tracking/tracking.types';
 
-class FacebookTrackingSoftware implements TrackingSoftware {
+class FacebookTrackingSoftware implements TrackingSoftware, Initializable {
   private initialized = false;
 
   initialize(): void {
-    this.initialized = true;
+    this.initialized = true;    
     // DO EXTRA LOGIC
   }
 
@@ -12,9 +12,9 @@ class FacebookTrackingSoftware implements TrackingSoftware {
    * Location is ignored in this example
    * @param eventName the tracked event
    */
-  trackEvent(eventName: string): void {
+  trackEvent(e: TraceableEvent): void {
     if (this.initialized) {
-      console.log('Facebook tracking event: ' + eventName);
+      console.log('Facebook tracking event: ' + e.name);
     }
   }
 }

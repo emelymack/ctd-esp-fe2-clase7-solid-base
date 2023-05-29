@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Location } from 'features/locations';
 import { useNavigate } from 'react-router-dom';
 import useTracking from 'features/tracking/tracking.context';
+import { ClickEvent } from 'features/tracking/software/Event';
 
 export type LocationsTableProps = {
   locations: Location[];
@@ -27,7 +28,14 @@ const LocationsTable: FC<LocationsTableProps> = ({ locations }: LocationsTablePr
             key={location.id}
             onClick={() => {
               navigate(`/location/${location.id}`);
-              trackEvent('LOCATION_CLICKED', 'LOCATION_TABLE');
+              const event = new ClickEvent (
+                'LOCATION_CLICKED',
+                'LOCATION_TABLE',
+                'TABLE_ROW'
+              )
+              console.log(event);
+              
+              trackEvent(event)
             }}>
             <td>#{location.id}</td>
             <td>{location.name}</td>

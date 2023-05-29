@@ -1,16 +1,20 @@
-import { TrackingSoftware } from 'features/tracking/tracking.types';
+import { Initializable, TraceableEvent, TrackingSoftware } from 'features/tracking/tracking.types';
 
-abstract class AmplitudeTrackingSoftware implements TrackingSoftware {
+abstract class AmplitudeTrackingSoftware implements TrackingSoftware, Initializable {
   private initialized = false;
 
   initialize(): void {
     this.initialized = true;
+    console.log('initialized');
+    
     // DO EXTRA LOGIC
   }
 
-  trackEvent(eventName: string, location: string): void {
+  trackEvent(event: TraceableEvent): void {
+    console.log(event.getEventData());
+    
     if (this.initialized) {
-      console.log('Event: ' + eventName + ' dispatched from: ' + location);
+      console.log('Event: ' + event.name + ' dispatched from: ' + event.location);
     }
   }
 }

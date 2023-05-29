@@ -4,12 +4,12 @@ import {
   FacebookTrackingSoftware,
   GoogleTrackingSoftware
 } from 'features/tracking/software';
-import { TrackingSoftware } from 'features/tracking/tracking.types';
+import { TraceableEvent, TrackingSoftware } from 'features/tracking/tracking.types';
 import AmplitudeLiskovTrackingSoftware from 'features/tracking/software/amplitude.liskov';
 
 export interface TrackingState {
   trackingSoftwares: TrackingSoftware[];
-  trackEvent: (eventName: string, location: string) => void;
+  trackEvent: (event: TraceableEvent) => void;
 }
 
 const TrackingContext = createContext<TrackingState | undefined>(undefined);
@@ -24,10 +24,12 @@ export const TrackingProvider: FC = ({ children }) => {
   const value = useMemo(
     () => ({
       trackingSoftwares,
-      trackEvent: (eventName: string, location: string) =>
+      trackEvent: (event: TraceableEvent) =>
         trackingSoftwares.forEach((trackingSoftware) => {
-          trackingSoftware.initialize();
-          trackingSoftware.trackEvent(eventName, location);
+          if('initialize' in trackingSoftware) {
+            trackingSoftware.initialize();
+          }
+          trackingSoftware.trackEvent(event);
         })
     }),
     [trackingSoftwares]
